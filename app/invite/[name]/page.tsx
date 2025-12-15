@@ -109,38 +109,39 @@ export default function InvitationPage() {
 
   return (
     <div className="h-[100dvh] w-full relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
-      <div className="absolute inset-0 bg-mesh-gradient opacity-30 pointer-events-none" />
+      <div className="absolute inset-0 bg-mesh-gradient opacity-30 pointer-events-none will-change-transform" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent pointer-events-none" />
       <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
 
-      <div className="absolute top-10 left-5 w-40 h-40 bg-red-600/20 rounded-full filter blur-3xl animate-blob pointer-events-none" />
-      <div className="absolute top-20 right-5 w-40 h-40 bg-amber-600/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 pointer-events-none" />
+      <div className="absolute top-10 left-5 w-40 h-40 bg-red-600/20 rounded-full filter blur-3xl animate-blob pointer-events-none will-change-transform" />
+      <div className="absolute top-20 right-5 w-40 h-40 bg-amber-600/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 pointer-events-none will-change-transform" />
 
       <div className="absolute inset-0 pointer-events-none z-30 overflow-hidden">
-        {[...Array(35)].map((_, i) => {
+        {[...Array(30)].map((_, i) => {
           const randomLeft = Math.random() * 100;
-          const size = Math.random() * 10 + 10;
-          const duration = Math.random() * 15 + 15;
-          const delay = Math.random() * 20;
+          const duration = Math.random() * 10 + 20;
+          const delay = Math.random() * 10;
+          const size = Math.random() * 8 + 8;
 
           return (
             <motion.div
               key={`snow-${i}`}
-              className="absolute text-white/70"
-              initial={{
+              className="absolute text-white/60"
+              style={{
                 left: `${randomLeft}%`,
-                top: -50,
-                rotate: 0,
-                opacity: 0,
+                top: -20,
+                fontSize: `${size}px`,
               }}
-              animate={{ top: "110vh", rotate: 360, opacity: [0, 0.7, 0.7, 0] }}
+              animate={{
+                y: "110vh",
+                rotate: 360,
+              }}
               transition={{
                 duration: duration,
                 repeat: Infinity,
                 delay: delay,
                 ease: "linear",
               }}
-              style={{ fontSize: `${size}px`, filter: "blur(0.3px)" }}
             >
               ❄
             </motion.div>
@@ -149,14 +150,14 @@ export default function InvitationPage() {
       </div>
 
       <motion.div
-        className="fixed top-6 left-6 text-2xl z-20 pointer-events-none"
+        className="fixed top-6 left-6 text-2xl md:text-4xl z-20 pointer-events-none will-change-transform"
         animate={{ y: [0, -10, 0], rotate: [-5, 5, -5] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
         🎄
       </motion.div>
       <motion.div
-        className="fixed top-10 right-6 text-xl z-20 pointer-events-none"
+        className="fixed top-10 right-6 text-xl md:text-3xl z-20 pointer-events-none will-change-transform"
         animate={{ y: [0, -8, 0], rotate: [5, -5, 5] }}
         transition={{
           duration: 2.5,
@@ -168,7 +169,7 @@ export default function InvitationPage() {
         🎁
       </motion.div>
       <motion.div
-        className="fixed bottom-16 left-8 text-xl z-20 pointer-events-none"
+        className="fixed bottom-16 left-8 text-xl md:text-3xl z-20 pointer-events-none will-change-transform"
         animate={{ y: [0, -8, 0], rotate: [-8, 8, -8] }}
         transition={{
           duration: 3.5,
@@ -180,7 +181,7 @@ export default function InvitationPage() {
         ⭐
       </motion.div>
       <motion.div
-        className="fixed bottom-24 right-10 text-lg z-20 pointer-events-none"
+        className="fixed bottom-24 right-10 text-lg md:text-2xl z-20 pointer-events-none will-change-transform"
         animate={{ y: [0, -6, 0], rotate: [8, -8, 8] }}
         transition={{
           duration: 2.8,
@@ -192,7 +193,7 @@ export default function InvitationPage() {
         🔔
       </motion.div>
       <motion.div
-        className="fixed top-14 right-16 text-2xl z-30 pointer-events-none"
+        className="fixed top-14 right-16 text-2xl md:text-4xl z-30 pointer-events-none will-change-transform"
         animate={{ y: [0, -15, 0], x: [-5, 5, -5], rotate: [-3, 3, -3] }}
         transition={{
           duration: 4,
@@ -213,11 +214,11 @@ export default function InvitationPage() {
           className="fixed bottom-8 right-6 md:bottom-12 md:right-10 z-50 flex items-center gap-3"
         >
           <div className="flex flex-col items-end">
-            <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
+            <p className="text-[9px] md:text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
               Now Playing
             </p>
             <motion.p
-              className="text-xs font-bold text-white text-right max-w-[150px]"
+              className="text-xs md:text-sm font-bold text-white text-right max-w-[150px] md:max-w-[200px]"
               style={{ textShadow: "0 2px 10px rgba(0,0,0,0.5)" }}
               animate={isPlaying ? { opacity: [1, 0.8, 1] } : {}}
               transition={{
@@ -229,7 +230,7 @@ export default function InvitationPage() {
               Army Of God Worship
             </motion.p>
             <p
-              className="text-xs text-slate-300"
+              className="text-xs md:text-sm text-slate-300"
               style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
             >
               Christmas Is Jesus
@@ -238,7 +239,7 @@ export default function InvitationPage() {
 
           <motion.button
             onClick={toggleMusic}
-            className="relative w-12 h-12 flex-shrink-0 rounded-full group"
+            className="relative w-12 h-12 md:w-14 md:h-14 flex-shrink-0 rounded-full group"
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.95 }}
             style={{ filter: "drop-shadow(0 4px 12px rgba(0,0,0,0.4))" }}
@@ -250,7 +251,7 @@ export default function InvitationPage() {
               }}
               animate={isPlaying ? { rotate: 360 } : { rotate: 0 }}
               transition={{
-                duration: 2,
+                duration: 3,
                 repeat: isPlaying ? Infinity : 0,
                 ease: "linear",
               }}
@@ -269,8 +270,8 @@ export default function InvitationPage() {
             </motion.div>
 
             <div className="absolute inset-0 flex items-center justify-center">
-              <div className="w-5 h-5 rounded-full bg-gradient-to-br from-amber-700 via-amber-800 to-amber-900 flex items-center justify-center border-2 border-amber-600/50 shadow-lg">
-                <div className="w-1.5 h-1.5 rounded-full bg-slate-900" />
+              <div className="w-5 h-5 md:w-6 md:h-6 rounded-full bg-gradient-to-br from-amber-700 via-amber-800 to-amber-900 flex items-center justify-center border-2 border-amber-600/50 shadow-lg">
+                <div className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-slate-900" />
               </div>
             </div>
 
@@ -281,7 +282,7 @@ export default function InvitationPage() {
                 className="absolute inset-0 flex items-center justify-center bg-slate-900/70 backdrop-blur-sm rounded-full"
               >
                 <div
-                  className="w-0 h-0 border-l-[10px] border-l-amber-500 border-y-[6px] border-y-transparent ml-0.5"
+                  className="w-0 h-0 border-l-[10px] md:border-l-[12px] border-l-amber-500 border-y-[6px] md:border-y-[8px] border-y-transparent ml-0.5"
                   style={{
                     filter: "drop-shadow(0 0 4px rgba(245, 158, 11, 0.8))",
                   }}
@@ -295,17 +296,17 @@ export default function InvitationPage() {
           initial={{ opacity: 0, scale: 0.9, y: 10 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
           transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1] }}
-          className="w-full max-w-sm"
+          className="w-full max-w-sm md:max-w-xl"
         >
           <div className="relative group w-full">
             <div className="absolute -inset-1 bg-gradient-to-r from-red-600 via-amber-500 to-red-600 rounded-3xl blur-xl opacity-30 group-hover:opacity-40 transition duration-1000" />
 
-            <div className="relative bg-slate-900/90 backdrop-blur-xl border border-white/10 rounded-3xl overflow-hidden">
-              <div className="relative h-36 overflow-hidden">
+            <div className="relative bg-slate-900/90 backdrop-blur-md border border-white/10 rounded-3xl overflow-hidden">
+              <div className="relative h-36 md:h-64 overflow-hidden">
                 <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-red-900 to-amber-900 opacity-90" />
                 <div className="absolute inset-0 bg-mesh-pattern opacity-20" />
                 <div className="absolute inset-0">
-                  {[...Array(15)].map((_, i) => (
+                  {[...Array(10)].map((_, i) => (
                     <motion.div
                       key={i}
                       className="absolute text-amber-400/60"
@@ -340,7 +341,7 @@ export default function InvitationPage() {
                     transition={{ delay: 0.2 }}
                     className="mb-1"
                   >
-                    <span className="text-sm md:text-base font-bold text-amber-200/80 tracking-[0.2em] uppercase shadow-black/30 drop-shadow-sm">
+                    <span className="text-sm md:text-lg font-bold text-amber-200/80 tracking-[0.2em] uppercase shadow-black/30 drop-shadow-sm">
                       GMS Frankfurt
                     </span>
                   </motion.div>
@@ -352,9 +353,9 @@ export default function InvitationPage() {
                     className={`${greatVibes.className} text-5xl md:text-7xl font-bold text-white leading-tight relative`}
                     style={{ textShadow: "0 0 60px rgba(255, 215, 0, 0.4)" }}
                   >
-                    Christmas Service
+                    Christmas Celebration
                     <motion.span
-                      className="absolute -top-1 -right-4 text-xl"
+                      className="absolute -top-1 -right-4 md:-top-4 md:-right-8 text-xl md:text-4xl"
                       animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
                       transition={{
                         duration: 1.5,
@@ -367,11 +368,12 @@ export default function InvitationPage() {
                   </motion.h1>
                 </div>
 
+                {/* Wave: Taller on desktop (md:h-16) */}
                 <div className="absolute bottom-0 left-0 right-0">
                   <svg
                     viewBox="0 0 1200 120"
                     preserveAspectRatio="none"
-                    className="w-full h-8"
+                    className="w-full h-8 md:h-16"
                   >
                     <path
                       d="M0,0 C300,80 600,80 900,0 L900,120 L0,120 Z"
@@ -381,20 +383,20 @@ export default function InvitationPage() {
                 </div>
               </div>
 
-              <div className="px-5 pt-1 pb-5">
+              <div className="px-5 pt-1 pb-5 md:px-10 md:pb-10">
                 <motion.div
                   initial={{ opacity: 0, y: 10 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="text-center mb-3"
+                  className="text-center mb-3 md:mb-6"
                 >
-                  <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-[0.2em] mb-1 flex items-center justify-center gap-2">
-                    <span className="w-8 h-px bg-gradient-to-r from-transparent to-slate-600" />
+                  <p className="text-[9px] md:text-xs font-semibold text-slate-400 uppercase tracking-[0.2em] mb-1 flex items-center justify-center gap-2">
+                    <span className="w-8 md:w-12 h-px bg-gradient-to-r from-transparent to-slate-600" />
                     Reserved For
-                    <span className="w-8 h-px bg-gradient-to-l from-transparent to-slate-600" />
+                    <span className="w-8 md:w-12 h-px bg-gradient-to-l from-transparent to-slate-600" />
                   </p>
                   <motion.h2
-                    className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent mb-2 animate-gradient-x"
+                    className="text-2xl md:text-5xl font-bold bg-gradient-to-r from-amber-200 via-amber-400 to-amber-200 bg-clip-text text-transparent mb-2 animate-gradient-x"
                     style={{ fontFamily: "var(--font-heading)" }}
                     animate={{
                       textShadow: [
@@ -414,13 +416,13 @@ export default function InvitationPage() {
 
                   <div className="flex items-center justify-center gap-1">
                     <motion.div
-                      className="w-1 h-1 rounded-full bg-amber-500/50"
+                      className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-amber-500/50"
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity }}
                     />
-                    <div className="w-8 h-px bg-gradient-to-r from-amber-500/50 to-transparent" />
+                    <div className="w-8 md:w-16 h-px bg-gradient-to-r from-amber-500/50 to-transparent" />
                     <motion.div
-                      className="w-1.5 h-1.5 rounded-full bg-amber-500"
+                      className="w-1.5 h-1.5 md:w-2 md:h-2 rounded-full bg-amber-500"
                       animate={{ scale: [1, 1.3, 1] }}
                       transition={{
                         duration: 1.5,
@@ -428,9 +430,9 @@ export default function InvitationPage() {
                         delay: 0.5,
                       }}
                     />
-                    <div className="w-8 h-px bg-gradient-to-l from-amber-500/50 to-transparent" />
+                    <div className="w-8 md:w-16 h-px bg-gradient-to-l from-amber-500/50 to-transparent" />
                     <motion.div
-                      className="w-1 h-1 rounded-full bg-amber-500/50"
+                      className="w-1 h-1 md:w-1.5 md:h-1.5 rounded-full bg-amber-500/50"
                       animate={{ scale: [1, 1.2, 1] }}
                       transition={{ duration: 1.5, repeat: Infinity, delay: 1 }}
                     />
@@ -444,52 +446,54 @@ export default function InvitationPage() {
                   className="space-y-0 overflow-hidden rounded-2xl border border-slate-800/50"
                 >
                   <motion.div
-                    className="flex items-center gap-3 p-2.5 bg-gradient-to-r from-slate-800/40 to-slate-800/20 transition-all duration-300 border-b border-slate-800/50"
+                    className="flex items-center gap-3 md:gap-5 p-2.5 md:p-4 bg-gradient-to-r from-slate-800/40 to-slate-800/20 transition-all duration-300 border-b border-slate-800/50"
                     whileHover={{ x: 3 }}
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-red-500/30 to-red-600/20 backdrop-blur-sm border border-red-500/30 flex items-center justify-center shadow-lg shadow-red-500/10">
-                      <Calendar className="w-5 h-5 text-red-400" />
+                    <div className="flex-shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gradient-to-br from-red-500/30 to-red-600/20 backdrop-blur-sm border border-red-500/30 flex items-center justify-center shadow-lg shadow-red-500/10">
+                      <Calendar className="w-5 h-5 md:w-7 md:h-7 text-red-400" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[8px] font-bold text-red-400/80 uppercase tracking-[0.15em] mb-0.5">
+                      <p className="text-[8px] md:text-[10px] font-bold text-red-400/80 uppercase tracking-[0.15em] mb-0.5">
                         Date
                       </p>
-                      <p className="text-sm font-bold text-white">
+                      <p className="text-sm md:text-xl font-bold text-white">
                         December 21, 2025
                       </p>
                     </div>
                   </motion.div>
 
                   <motion.div
-                    className="flex items-center gap-3 p-2.5 bg-gradient-to-r from-slate-800/40 to-slate-800/20 transition-all duration-300 border-b border-slate-800/50"
+                    className="flex items-center gap-3 md:gap-5 p-2.5 md:p-4 bg-gradient-to-r from-slate-800/40 to-slate-800/20 transition-all duration-300 border-b border-slate-800/50"
                     whileHover={{ x: 3 }}
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-amber-500/30 to-amber-600/20 backdrop-blur-sm border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/10">
-                      <Clock className="w-5 h-5 text-amber-400" />
+                    <div className="flex-shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gradient-to-br from-amber-500/30 to-amber-600/20 backdrop-blur-sm border border-amber-500/30 flex items-center justify-center shadow-lg shadow-amber-500/10">
+                      <Clock className="w-5 h-5 md:w-7 md:h-7 text-amber-400" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[8px] font-bold text-amber-400/80 uppercase tracking-[0.15em] mb-0.5">
+                      <p className="text-[8px] md:text-[10px] font-bold text-amber-400/80 uppercase tracking-[0.15em] mb-0.5">
                         Time
                       </p>
-                      <p className="text-sm font-bold text-white">12:00 PM</p>
+                      <p className="text-sm md:text-xl font-bold text-white">
+                        12:00 PM
+                      </p>
                     </div>
                   </motion.div>
 
                   <motion.div
-                    className="flex items-start gap-3 p-2.5 bg-gradient-to-r from-slate-800/40 to-slate-800/20 transition-all duration-300"
+                    className="flex items-start gap-3 md:gap-5 p-2.5 md:p-4 bg-gradient-to-r from-slate-800/40 to-slate-800/20 transition-all duration-300"
                     whileHover={{ x: 3 }}
                   >
-                    <div className="flex-shrink-0 w-10 h-10 rounded-lg bg-gradient-to-br from-green-500/30 to-green-600/20 backdrop-blur-sm border border-green-500/30 flex items-center justify-center shadow-lg shadow-green-500/10">
-                      <MapPin className="w-5 h-5 text-green-400" />
+                    <div className="flex-shrink-0 w-10 h-10 md:w-14 md:h-14 rounded-lg bg-gradient-to-br from-green-500/30 to-green-600/20 backdrop-blur-sm border border-green-500/30 flex items-center justify-center shadow-lg shadow-green-500/10">
+                      <MapPin className="w-5 h-5 md:w-7 md:h-7 text-green-400" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <p className="text-[8px] font-bold text-green-400/80 uppercase tracking-[0.15em] mb-0.5">
+                      <p className="text-[8px] md:text-[10px] font-bold text-green-400/80 uppercase tracking-[0.15em] mb-0.5">
                         Location
                       </p>
-                      <p className="text-sm font-bold text-white mb-0.5">
+                      <p className="text-sm md:text-xl font-bold text-white mb-0.5">
                         Hafenkirche
                       </p>
-                      <p className="text-[10px] text-slate-400 leading-tight">
+                      <p className="text-[10px] md:text-sm text-slate-400 leading-tight">
                         Ludwigstraße 29, 60327
                         <br />
                         Frankfurt am Main, Germany
@@ -502,7 +506,7 @@ export default function InvitationPage() {
                   initial={{ opacity: 0 }}
                   animate={{ opacity: 1 }}
                   transition={{ delay: 0.7 }}
-                  className="text-center text-[10px] text-slate-500 mt-3 pt-3 border-t border-slate-800 flex items-center justify-center gap-1"
+                  className="text-center text-[10px] md:text-sm text-slate-500 mt-3 md:mt-6 pt-3 md:pt-4 border-t border-slate-800 flex items-center justify-center gap-1"
                 >
                   We look forward to celebrating with you!
                   <motion.span
