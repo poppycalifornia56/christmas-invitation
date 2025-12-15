@@ -21,15 +21,22 @@ const lato = Lato({
 
 export const metadata: Metadata = {
   title: "GMS Frankfurt Christmas Celebration",
-  description: "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
-  icons: {
-    icon: "data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🎄</text></svg>",
-  },
+  description:
+    "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
   openGraph: {
     title: "GMS Frankfurt Christmas Celebration",
-    description: "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
+    description:
+      "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
     type: "website",
-    // images: ['/your-custom-image.png'],
+    locale: "en_US",
+    images: [
+      {
+        url: "/gms-frankfurt.jpg",
+        width: 1200,
+        height: 630,
+        alt: "GMS Frankfurt Christmas Celebration",
+      },
+    ],
   },
 };
 
