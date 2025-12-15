@@ -36,7 +36,6 @@ export default function InvitationPage() {
     const attemptPlay = () => {
       if (audioRef.current) {
         const playPromise = audioRef.current.play();
-
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
@@ -45,16 +44,12 @@ export default function InvitationPage() {
               document.removeEventListener("touchstart", attemptPlay);
               document.removeEventListener("scroll", attemptPlay);
             })
-            .catch((error) => {
-              console.log("Autoplay blocked. Waiting for user interaction.");
-              setIsPlaying(false);
-            });
+            .catch(() => setIsPlaying(false));
         }
       }
     };
 
     attemptPlay();
-
     document.addEventListener("click", attemptPlay, { once: true });
     document.addEventListener("touchstart", attemptPlay, { once: true });
     document.addEventListener("scroll", attemptPlay, { once: true });
@@ -67,10 +62,8 @@ export default function InvitationPage() {
     (function frame() {
       const timeLeft = animationEnd - Date.now();
       if (timeLeft <= 0) return;
-      const particleCount = 2;
-
       confetti({
-        particleCount,
+        particleCount: 2,
         startVelocity: 30,
         spread: 360,
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
@@ -80,7 +73,7 @@ export default function InvitationPage() {
         scalar: 0.9,
       });
       confetti({
-        particleCount,
+        particleCount: 2,
         startVelocity: 30,
         spread: 360,
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
@@ -89,7 +82,6 @@ export default function InvitationPage() {
         gravity: 0.8,
         scalar: 0.9,
       });
-
       requestAnimationFrame(frame);
     })();
 
@@ -109,9 +101,7 @@ export default function InvitationPage() {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch((error) => {
-          console.error("Error playing audio:", error);
-        });
+        audioRef.current.play().catch((error) => console.error(error));
       }
       setIsPlaying(!isPlaying);
     }
@@ -128,7 +118,7 @@ export default function InvitationPage() {
       <div className="fixed top-10 left-5 w-40 h-40 bg-red-600/20 rounded-full filter blur-3xl animate-blob pointer-events-none" />
       <div className="fixed top-20 right-5 w-40 h-40 bg-amber-600/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 pointer-events-none" />
 
-      <div className="fixed inset-0 pointer-events-none z-20 overflow-hidden">
+      <div className="fixed inset-0 pointer-events-none z-30 overflow-hidden">
         {[...Array(35)].map((_, i) => {
           const randomLeft = Math.random() * 100;
           const size = Math.random() * 10 + 10;
@@ -161,14 +151,14 @@ export default function InvitationPage() {
       </div>
 
       <motion.div
-        className="absolute top-8 left-8 text-3xl z-5"
+        className="fixed top-8 left-8 text-3xl z-20 pointer-events-none"
         animate={{ y: [0, -15, 0], rotate: [-5, 5, -5] }}
         transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
       >
         🎄
       </motion.div>
       <motion.div
-        className="absolute top-12 right-8 text-2xl z-5"
+        className="fixed top-12 right-8 text-2xl z-20 pointer-events-none"
         animate={{ y: [0, -12, 0], rotate: [5, -5, 5] }}
         transition={{
           duration: 2.5,
@@ -180,7 +170,7 @@ export default function InvitationPage() {
         🎁
       </motion.div>
       <motion.div
-        className="absolute bottom-20 left-10 text-2xl z-5"
+        className="fixed bottom-20 left-10 text-2xl z-20 pointer-events-none"
         animate={{ y: [0, -10, 0], rotate: [-8, 8, -8] }}
         transition={{
           duration: 3.5,
@@ -192,7 +182,7 @@ export default function InvitationPage() {
         ⭐
       </motion.div>
       <motion.div
-        className="absolute bottom-32 right-12 text-xl z-5"
+        className="fixed bottom-32 right-12 text-xl z-20 pointer-events-none"
         animate={{ y: [0, -8, 0], rotate: [8, -8, 8] }}
         transition={{
           duration: 2.8,
@@ -204,7 +194,7 @@ export default function InvitationPage() {
         🔔
       </motion.div>
       <motion.div
-        className="absolute top-16 right-20 text-3xl z-30"
+        className="fixed top-16 right-20 text-3xl z-30 pointer-events-none"
         animate={{ y: [0, -20, 0], x: [-5, 5, -5], rotate: [-3, 3, -3] }}
         transition={{
           duration: 4,
@@ -217,7 +207,7 @@ export default function InvitationPage() {
         🎅
       </motion.div>
 
-      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 py-6">
+      <div className="relative z-10 min-h-screen flex items-center justify-center px-4 pt-10 pb-32">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
@@ -361,12 +351,10 @@ export default function InvitationPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 }}
-                    className={`${greatVibes.className} text-5xl font-bold text-white leading-tight relative`}
+                    className={`${greatVibes.className} text-4xl md:text-5xl font-bold text-white leading-tight relative`}
                     style={{ textShadow: "0 0 60px rgba(255, 215, 0, 0.4)" }}
                   >
-                    Christmas
-                    <br />
-                    Celebration
+                    Christmas Celebration
                     <motion.span
                       className="absolute -top-2 -right-6 text-2xl"
                       animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
