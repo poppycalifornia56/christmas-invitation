@@ -210,7 +210,7 @@ export default function InvitationPage() {
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ delay: 1, duration: 0.5 }}
-          className="fixed bottom-4 right-4 z-50 flex items-center gap-3"
+          className="fixed bottom-8 right-6 md:bottom-12 md:right-10 z-50 flex items-center gap-3"
         >
           <div className="flex flex-col items-end">
             <p className="text-[9px] font-semibold text-slate-400 uppercase tracking-wider mb-0.5">
@@ -228,6 +228,12 @@ export default function InvitationPage() {
             >
               Army Of God Worship
             </motion.p>
+            <p
+              className="text-xs text-slate-300"
+              style={{ textShadow: "0 2px 8px rgba(0,0,0,0.5)" }}
+            >
+              Christmas Is Jesus
+            </p>
           </div>
 
           <motion.button
@@ -334,7 +340,7 @@ export default function InvitationPage() {
                     transition={{ delay: 0.2 }}
                     className="mb-1"
                   >
-                    <span className="text-xs font-bold text-amber-200/80 tracking-[0.2em] uppercase shadow-black/30 drop-shadow-sm">
+                    <span className="text-sm md:text-base font-bold text-amber-200/80 tracking-[0.2em] uppercase shadow-black/30 drop-shadow-sm">
                       GMS Frankfurt
                     </span>
                   </motion.div>
@@ -343,7 +349,7 @@ export default function InvitationPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 }}
-                    className={`${greatVibes.className} text-4xl md:text-5xl font-bold text-white leading-tight relative`}
+                    className={`${greatVibes.className} text-5xl md:text-7xl font-bold text-white leading-tight relative`}
                     style={{ textShadow: "0 0 60px rgba(255, 215, 0, 0.4)" }}
                   >
                     Christmas Celebration
