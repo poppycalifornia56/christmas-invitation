@@ -51,11 +51,11 @@ export default function GeneratorPage() {
               animate={{ y: 0, opacity: 1 }}
               className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#d4af37] text-[10px] font-bold tracking-[0.2em] uppercase mb-4"
             >
-              <Sparkles size={10} />
+              {/* <Sparkles size={10} /> */}
               GMS Frankfurt
             </motion.div>
             <h1 className="font-christmas text-5xl text-white mb-2">Guest List</h1>
-            <p className="text-white/40 text-sm">Create a personalized digital experience.</p>
+            {/* <p className="text-white/40 text-sm">Create a personalized digital experience.</p> */}
           </div>
 
           <div className="space-y-4">
