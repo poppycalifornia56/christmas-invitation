@@ -353,7 +353,7 @@ export default function InvitationPage() {
                     className={`${greatVibes.className} text-5xl md:text-7xl font-bold text-white leading-tight relative`}
                     style={{ textShadow: "0 0 60px rgba(255, 215, 0, 0.4)" }}
                   >
-                    Christmas Celebration
+                    Christmas Service 
                     <motion.span
                       className="absolute -top-1 -right-4 md:-top-4 md:-right-8 text-xl md:text-4xl"
                       animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
