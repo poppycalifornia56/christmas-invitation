@@ -20,8 +20,9 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "Christmas Party Invitation",
-  description: "Join us for a festive celebration!",
+  title: "GMS Frankfurt Christmas Service Invitation",
+  description:
+    "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
 };
 
 export const viewport: Viewport = {
