@@ -19,10 +19,18 @@ const lato = Lato({
   variable: "--font-body",
 });
 
+// UPDATED METADATA SECTION
 export const metadata: Metadata = {
-  title: "GMS Frankfurt Christmas Service Invitation",
+  title: "GMS Frankfurt Christmas Celebration",
   description:
     "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
+  openGraph: {
+    title: "GMS Frankfurt Christmas Celebration",
+    description:
+      "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
+    type: "website",
+    locale: "en_US",
+  },
 };
 
 export const viewport: Viewport = {
