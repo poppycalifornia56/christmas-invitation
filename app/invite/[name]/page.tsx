@@ -36,6 +36,7 @@ export default function InvitationPage() {
     const attemptPlay = () => {
       if (audioRef.current) {
         const playPromise = audioRef.current.play();
+
         if (playPromise !== undefined) {
           playPromise
             .then(() => {
@@ -44,12 +45,16 @@ export default function InvitationPage() {
               document.removeEventListener("touchstart", attemptPlay);
               document.removeEventListener("scroll", attemptPlay);
             })
-            .catch(() => setIsPlaying(false));
+            .catch((error) => {
+              console.log("Autoplay blocked. Waiting for user interaction.");
+              setIsPlaying(false);
+            });
         }
       }
     };
 
     attemptPlay();
+
     document.addEventListener("click", attemptPlay, { once: true });
     document.addEventListener("touchstart", attemptPlay, { once: true });
     document.addEventListener("scroll", attemptPlay, { once: true });
@@ -62,8 +67,10 @@ export default function InvitationPage() {
     (function frame() {
       const timeLeft = animationEnd - Date.now();
       if (timeLeft <= 0) return;
+      const particleCount = 2;
+
       confetti({
-        particleCount: 2,
+        particleCount,
         startVelocity: 30,
         spread: 360,
         origin: { x: randomInRange(0.1, 0.3), y: Math.random() - 0.2 },
@@ -73,7 +80,7 @@ export default function InvitationPage() {
         scalar: 0.9,
       });
       confetti({
-        particleCount: 2,
+        particleCount,
         startVelocity: 30,
         spread: 360,
         origin: { x: randomInRange(0.7, 0.9), y: Math.random() - 0.2 },
@@ -82,6 +89,7 @@ export default function InvitationPage() {
         gravity: 0.8,
         scalar: 0.9,
       });
+
       requestAnimationFrame(frame);
     })();
 
@@ -101,7 +109,9 @@ export default function InvitationPage() {
       if (isPlaying) {
         audioRef.current.pause();
       } else {
-        audioRef.current.play().catch((error) => console.error(error));
+        audioRef.current.play().catch((error) => {
+          console.error("Error playing audio:", error);
+        });
       }
       setIsPlaying(!isPlaying);
     }
@@ -342,7 +352,7 @@ export default function InvitationPage() {
                     transition={{ delay: 0.2 }}
                     className="mb-2"
                   >
-                    <span className="text-xs font-bold text-amber-200/80 tracking-[0.2em] uppercase shadow-black/30 drop-shadow-sm">
+                    <span className="text-sm md:text-base font-bold text-amber-200/80 tracking-[0.2em] uppercase shadow-black/30 drop-shadow-sm">
                       GMS Frankfurt
                     </span>
                   </motion.div>
@@ -351,7 +361,7 @@ export default function InvitationPage() {
                     initial={{ opacity: 0, scale: 0.9 }}
                     animate={{ opacity: 1, scale: 1 }}
                     transition={{ delay: 0.3 }}
-                    className={`${greatVibes.className} text-4xl md:text-5xl font-bold text-white leading-tight relative`}
+                    className={`${greatVibes.className} text-5xl md:text-7xl font-bold text-white leading-tight relative`}
                     style={{ textShadow: "0 0 60px rgba(255, 215, 0, 0.4)" }}
                   >
                     Christmas Celebration
