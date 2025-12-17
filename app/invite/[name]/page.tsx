@@ -3,7 +3,7 @@
 import { useEffect, useState, useRef } from "react";
 import { useParams } from "next/navigation";
 import confetti from "canvas-confetti";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 import { Calendar, MapPin, Clock } from "lucide-react";
 import { Great_Vibes } from "next/font/google";
 
@@ -12,15 +12,36 @@ const greatVibes = Great_Vibes({
   subsets: ["latin"],
 });
 
+type Snowflake = {
+  id: number;
+  left: number;
+  duration: number;
+  delay: number;
+  size: number;
+  opacity: number;
+};
+
 export default function InvitationPage() {
   const params = useParams();
   const [name, setName] = useState("");
   const [mounted, setMounted] = useState(false);
   const [isPlaying, setIsPlaying] = useState(false);
+  const [snowflakes, setSnowflakes] = useState<Snowflake[]>([]);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
   useEffect(() => {
     setMounted(true);
+
+    const flakes = Array.from({ length: 35 }).map((_, i) => ({
+      id: i,
+      left: Math.random() * 100,
+      duration: Math.random() * 10 + 15, 
+      delay: Math.random() * -20, 
+      size: Math.random() * 8 + 10,
+      opacity: Math.random() * 0.5 + 0.3,
+    }));
+    setSnowflakes(flakes);
+
     if (params.name) {
       setName(decodeURIComponent(params.name as string));
     }
@@ -38,13 +59,17 @@ export default function InvitationPage() {
           playPromise
             .then(() => {
               setIsPlaying(true);
-              document.removeEventListener("click", attemptPlay);
-              document.removeEventListener("touchstart", attemptPlay);
-              document.removeEventListener("scroll", attemptPlay);
+              cleanupListeners();
             })
             .catch(() => setIsPlaying(false));
         }
       }
+    };
+
+    const cleanupListeners = () => {
+      document.removeEventListener("click", attemptPlay);
+      document.removeEventListener("touchstart", attemptPlay);
+      document.removeEventListener("scroll", attemptPlay);
     };
 
     attemptPlay();
@@ -57,7 +82,7 @@ export default function InvitationPage() {
     const randomInRange = (min: number, max: number) =>
       Math.random() * (max - min) + min;
 
-    (function frame() {
+    const frame = () => {
       const timeLeft = animationEnd - Date.now();
       if (timeLeft <= 0) return;
       confetti({
@@ -81,16 +106,15 @@ export default function InvitationPage() {
         scalar: 0.9,
       });
       requestAnimationFrame(frame);
-    })();
+    };
+    frame();
 
     return () => {
       if (audioRef.current) {
         audioRef.current.pause();
         audioRef.current = null;
       }
-      document.removeEventListener("click", attemptPlay);
-      document.removeEventListener("touchstart", attemptPlay);
-      document.removeEventListener("scroll", attemptPlay);
+      cleanupListeners();
     };
   }, [params.name]);
 
@@ -109,58 +133,65 @@ export default function InvitationPage() {
 
   return (
     <div className="h-[100dvh] w-full relative overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
+      <style jsx global>{`
+        @keyframes snowfall {
+          0% {
+            transform: translate3d(0, -10vh, 0) rotate(0deg);
+          }
+          100% {
+            transform: translate3d(0, 110vh, 0) rotate(360deg);
+          }
+        }
+        .snowflake {
+          position: absolute;
+          top: -20px;
+          color: white;
+          user-select: none;
+          pointer-events: none;
+          will-change: transform; /* Hint to browser to use GPU */
+          animation-name: snowfall;
+          animation-timing-function: linear;
+          animation-iteration-count: infinite;
+        }
+      `}</style>
+
       <div className="absolute inset-0 bg-mesh-gradient opacity-30 pointer-events-none will-change-transform" />
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-red-900/20 via-transparent to-transparent pointer-events-none" />
       <div className="absolute inset-0 bg-grid-white/[0.02] pointer-events-none" />
 
-      <div className="absolute top-10 left-5 w-40 h-40 bg-red-600/20 rounded-full filter blur-3xl animate-blob pointer-events-none will-change-transform" />
-      <div className="absolute top-20 right-5 w-40 h-40 bg-amber-600/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 pointer-events-none will-change-transform" />
+      <div className="absolute top-10 left-5 w-40 h-40 bg-red-600/20 rounded-full filter blur-3xl animate-blob pointer-events-none opacity-70" />
+      <div className="absolute top-20 right-5 w-40 h-40 bg-amber-600/20 rounded-full filter blur-3xl animate-blob animation-delay-2000 pointer-events-none opacity-70" />
 
       <div className="absolute inset-0 pointer-events-none z-30 overflow-hidden">
-        {[...Array(30)].map((_, i) => {
-          const randomLeft = Math.random() * 100;
-          const duration = Math.random() * 10 + 20;
-          const delay = Math.random() * 10;
-          const size = Math.random() * 8 + 8;
-
-          return (
-            <motion.div
-              key={`snow-${i}`}
-              className="absolute text-white/60"
-              style={{
-                left: `${randomLeft}%`,
-                top: -20,
-                fontSize: `${size}px`,
-              }}
-              animate={{
-                y: "110vh",
-                rotate: 360,
-              }}
-              transition={{
-                duration: duration,
-                repeat: Infinity,
-                delay: delay,
-                ease: "linear",
-              }}
-            >
-              ❄
-            </motion.div>
-          );
-        })}
+        {snowflakes.map((flake) => (
+          <div
+            key={flake.id}
+            className="snowflake"
+            style={{
+              left: `${flake.left}%`,
+              fontSize: `${flake.size}px`,
+              opacity: flake.opacity,
+              animationDuration: `${flake.duration}s`,
+              animationDelay: `${flake.delay}s`,
+            }}
+          >
+            ❄
+          </div>
+        ))}
       </div>
 
       <motion.div
         className="fixed top-6 left-6 text-2xl md:text-4xl z-20 pointer-events-none will-change-transform"
-        animate={{ y: [0, -10, 0], rotate: [-5, 5, -5] }}
-        transition={{ duration: 3, repeat: Infinity, ease: "easeInOut" }}
+        animate={{ y: [0, -8, 0], rotate: [-5, 5, -5] }}
+        transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
       >
         🎄
       </motion.div>
       <motion.div
         className="fixed top-10 right-6 text-xl md:text-3xl z-20 pointer-events-none will-change-transform"
-        animate={{ y: [0, -8, 0], rotate: [5, -5, 5] }}
+        animate={{ y: [0, -6, 0], rotate: [5, -5, 5] }}
         transition={{
-          duration: 2.5,
+          duration: 3.5,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 0.5,
@@ -172,7 +203,7 @@ export default function InvitationPage() {
         className="fixed bottom-16 left-8 text-xl md:text-3xl z-20 pointer-events-none will-change-transform"
         animate={{ y: [0, -8, 0], rotate: [-8, 8, -8] }}
         transition={{
-          duration: 3.5,
+          duration: 4.5,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 1,
@@ -184,7 +215,7 @@ export default function InvitationPage() {
         className="fixed bottom-24 right-10 text-lg md:text-2xl z-20 pointer-events-none will-change-transform"
         animate={{ y: [0, -6, 0], rotate: [8, -8, 8] }}
         transition={{
-          duration: 2.8,
+          duration: 3.8,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 1.5,
@@ -194,9 +225,9 @@ export default function InvitationPage() {
       </motion.div>
       <motion.div
         className="fixed top-14 right-16 text-2xl md:text-4xl z-30 pointer-events-none will-change-transform"
-        animate={{ y: [0, -15, 0], x: [-5, 5, -5], rotate: [-3, 3, -3] }}
+        animate={{ y: [0, -10, 0], x: [-3, 3, -3], rotate: [-3, 3, -3] }}
         transition={{
-          duration: 4,
+          duration: 5,
           repeat: Infinity,
           ease: "easeInOut",
           delay: 0.3,
@@ -306,7 +337,7 @@ export default function InvitationPage() {
                 <div className="absolute inset-0 bg-gradient-to-br from-red-950 via-red-900 to-amber-900 opacity-90" />
                 <div className="absolute inset-0 bg-mesh-pattern opacity-20" />
                 <div className="absolute inset-0">
-                  {[...Array(10)].map((_, i) => (
+                  {[...Array(8)].map((_, i) => (
                     <motion.div
                       key={i}
                       className="absolute text-amber-400/60"
@@ -322,7 +353,7 @@ export default function InvitationPage() {
                         scale: [0, 1, 0],
                       }}
                       transition={{
-                        duration: Math.random() * 3 + 2,
+                        duration: Math.random() * 3 + 3,
                         repeat: Infinity,
                         delay: Math.random() * 5,
                         ease: "linear",
@@ -353,12 +384,12 @@ export default function InvitationPage() {
                     className={`${greatVibes.className} text-5xl md:text-7xl font-bold text-white leading-tight relative`}
                     style={{ textShadow: "0 0 60px rgba(255, 215, 0, 0.4)" }}
                   >
-                    Christmas Service 
+                    Christmas Service
                     <motion.span
                       className="absolute -top-1 -right-4 md:-top-4 md:-right-8 text-xl md:text-4xl"
                       animate={{ scale: [1, 1.3, 1], opacity: [0.6, 1, 0.6] }}
                       transition={{
-                        duration: 1.5,
+                        duration: 2,
                         repeat: Infinity,
                         ease: "easeInOut",
                       }}
@@ -368,7 +399,7 @@ export default function InvitationPage() {
                   </motion.h1>
                 </div>
 
-               <div className="absolute bottom-0 left-0 right-0">
+                <div className="absolute bottom-0 left-0 right-0">
                   <svg
                     viewBox="0 0 1200 120"
                     preserveAspectRatio="none"
@@ -405,7 +436,7 @@ export default function InvitationPage() {
                       ],
                     }}
                     transition={{
-                      duration: 2,
+                      duration: 3,
                       repeat: Infinity,
                       ease: "easeInOut",
                     }}
@@ -507,7 +538,7 @@ export default function InvitationPage() {
                   transition={{ delay: 0.7 }}
                   className="text-center text-[10px] md:text-sm text-slate-500 mt-3 md:mt-6 pt-3 md:pt-4 border-t border-slate-800 flex items-center justify-center gap-1"
                 >
-                  We look forward to celebrating with you!
+                  We look forward to welcoming you!
                   <motion.span
                     animate={{ rotate: [0, 10, -10, 0] }}
                     transition={{

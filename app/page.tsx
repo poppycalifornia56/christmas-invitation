@@ -1,12 +1,12 @@
-'use client';
+"use client";
 
-import { useState } from 'react';
-import { Copy, Sparkles, Send, CheckCircle2, ArrowRight } from 'lucide-react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useState } from "react";
+import { Copy, Sparkles, Send, CheckCircle2, ArrowRight } from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 
 export default function GeneratorPage() {
-  const [guestName, setGuestName] = useState('');
-  const [generatedLink, setGeneratedLink] = useState('');
+  const [guestName, setGuestName] = useState("");
+  const [generatedLink, setGeneratedLink] = useState("");
   const [copied, setCopied] = useState(false);
 
   const handleGenerate = () => {
@@ -26,47 +26,46 @@ export default function GeneratorPage() {
   const shareToWhatsApp = () => {
     const text = `🎄 Hi ${guestName}! I've created a special Christmas invitation for you. Open it here: ${generatedLink}`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(text)}`;
-    window.open(whatsappUrl, '_blank');
+    window.open(whatsappUrl, "_blank");
   };
 
   return (
-    <div className="min-h-screen bg-[#051a15] flex flex-col items-center justify-center p-6 relative overflow-hidden font-body">
+    <div className="min-h-screen bg-[#051a15] flex flex-col items-center justify-center p-4 md:p-6 relative overflow-hidden font-body">
       <div className="bg-noise"></div>
 
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,_var(--tw-gradient-stops))] from-[#0f4c3a] via-[#051a15] to-black opacity-80"></div>
 
-      <motion.div 
+      <motion.div
         initial={{ opacity: 0, scale: 0.95 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.5 }}
         className="max-w-md w-full relative z-10"
       >
-        <div className="backdrop-blur-xl bg-black/40 border border-white/10 p-8 rounded-3xl shadow-2xl relative overflow-hidden group">
-          
+        <div className="backdrop-blur-xl bg-black/40 border border-white/10 p-6 md:p-8 rounded-3xl shadow-2xl relative overflow-hidden group">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-32 h-1 bg-gradient-to-r from-transparent via-[#d4af37] to-transparent opacity-50 blur-sm"></div>
 
-          <div className="text-center mb-8">
-            <motion.div 
+          <div className="text-center mb-6 md:mb-8">
+            <motion.div
               initial={{ y: -10, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
-              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#d4af37] text-[10px] font-bold tracking-[0.2em] uppercase mb-4"
+              className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#d4af37]/10 border border-[#d4af37]/20 text-[#d4af37] text-[10px] font-bold tracking-[0.2em] uppercase mb-3 md:mb-4"
             >
-              {/* <Sparkles size={10} /> */}
-              GMS Frankfurt
+              Property of DEU 03
             </motion.div>
-            <h1 className="font-christmas text-5xl text-white mb-2">Guest List</h1>
-            {/* <p className="text-white/40 text-sm">Create a personalized digital experience.</p> */}
+            <h1 className="font-christmas text-4xl md:text-5xl text-white mb-2">
+              Guest List
+            </h1>
           </div>
 
-          <div className="space-y-4">
+          <div className="space-y-3 md:space-y-4">
             <div className="relative">
               <input
                 type="text"
                 value={guestName}
                 onChange={(e) => setGuestName(e.target.value)}
                 placeholder="Enter Guest Name"
-                className="w-full bg-white/5 text-white placeholder-white/20 border border-white/10 rounded-2xl px-6 py-5 focus:outline-none focus:bg-white/10 focus:border-[#d4af37]/50 transition-all text-center text-xl font-serif"
-                onKeyDown={(e) => e.key === 'Enter' && handleGenerate()}
+                className="w-full bg-white/5 text-white placeholder-white/20 border border-white/10 rounded-2xl px-4 py-4 md:px-6 md:py-5 focus:outline-none focus:bg-white/10 focus:border-[#d4af37]/50 transition-all text-center text-lg md:text-xl font-serif"
+                onKeyDown={(e) => e.key === "Enter" && handleGenerate()}
               />
             </div>
 
@@ -75,7 +74,7 @@ export default function GeneratorPage() {
               whileTap={{ scale: 0.98 }}
               onClick={handleGenerate}
               disabled={!guestName}
-              className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-[#051a15] py-5 rounded-2xl font-bold transition-all shadow-lg shadow-[#d4af37]/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+              className="w-full bg-[#d4af37] hover:bg-[#c5a028] text-[#051a15] py-4 md:py-5 rounded-2xl font-bold transition-all shadow-lg shadow-[#d4af37]/20 flex items-center justify-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed text-sm md:text-base"
             >
               <span>Generate Invitation</span>
               <ArrowRight size={18} />
@@ -84,23 +83,28 @@ export default function GeneratorPage() {
 
           <AnimatePresence>
             {generatedLink && (
-              <motion.div 
+              <motion.div
                 initial={{ height: 0, opacity: 0 }}
-                animate={{ height: 'auto', opacity: 1 }}
+                animate={{ height: "auto", opacity: 1 }}
                 exit={{ height: 0, opacity: 0 }}
                 className="overflow-hidden"
               >
-                <div className="mt-8 pt-6 border-t border-white/10 space-y-3">
-                  <div className="p-4 bg-black/50 rounded-xl border border-white/5 flex items-center justify-between">
-                     <p className="text-white/60 text-xs truncate mr-4">{generatedLink}</p>
-                     <button onClick={copyToClipboard} className="text-[#d4af37] hover:text-white transition-colors">
-                        {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
-                     </button>
+                <div className="mt-6 md:mt-8 pt-6 border-t border-white/10 space-y-3">
+                  <div className="p-3 md:p-4 bg-black/50 rounded-xl border border-white/5 flex items-center justify-between">
+                    <p className="text-white/60 text-xs truncate mr-4">
+                      {generatedLink}
+                    </p>
+                    <button
+                      onClick={copyToClipboard}
+                      className="text-[#d4af37] hover:text-white transition-colors flex-shrink-0"
+                    >
+                      {copied ? <CheckCircle2 size={18} /> : <Copy size={18} />}
+                    </button>
                   </div>
-                  
-                  <button 
+
+                  <button
                     onClick={shareToWhatsApp}
-                    className="w-full bg-[#25D366]/90 hover:bg-[#25D366] text-white py-4 rounded-xl font-bold text-sm tracking-wide uppercase flex items-center justify-center gap-2 transition-all"
+                    className="w-full bg-[#25D366]/90 hover:bg-[#25D366] text-white py-3 md:py-4 rounded-xl font-bold text-sm tracking-wide uppercase flex items-center justify-center gap-2 transition-all"
                   >
                     <Send size={16} />
                     Send via WhatsApp
@@ -109,6 +113,12 @@ export default function GeneratorPage() {
               </motion.div>
             )}
           </AnimatePresence>
+
+          <div className="mt-8 text-center border-t border-white/5 pt-4">
+            <p className="text-[10px] text-white/20 uppercase tracking-widest hover:text-white/40 transition-colors cursor-default">
+              © {new Date().getFullYear()} CG DEU 03
+            </p>
+          </div>
         </div>
       </motion.div>
     </div>
