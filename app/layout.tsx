@@ -20,21 +20,28 @@ const lato = Lato({
 });
 
 export const metadata: Metadata = {
-  title: "GMS Frankfurt Christmas Celebration",
+  title: "GMS Frankfurt Christmas Service",
   description:
     "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
+
+  icons: {
+    icon: "/photo.jpg",
+    shortcut: "/photo.jpg",
+    apple: "/photo.jpg",
+  },
+
   openGraph: {
-    title: "GMS Frankfurt Christmas Celebration",
+    title: "GMS Frankfurt Christmas Service",
     description:
       "Join us for our Christmas Service on Sunday, 21st December 2025 at 12 PM!",
     type: "website",
     locale: "en_US",
     images: [
       {
-        url: "/gms-frankfurt.jpg",
+        url: "/photo.jpg",
         width: 1200,
         height: 630,
-        alt: "GMS Frankfurt Christmas Celebration",
+        alt: "GMS Frankfurt Christmas Service",
       },
     ],
   },
